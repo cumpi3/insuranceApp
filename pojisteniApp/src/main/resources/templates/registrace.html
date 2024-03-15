@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="cz-cz">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>InsuranceApp</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <script defer th:src="@{/js/scripts.js}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index">insuranceApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index">Domů</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser == null}" class="nav-link" href="reference">Reference</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pojisteni">Pojištění</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser != null}" class="nav-link" href="udalosti">Moje události</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Uživatel</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a th:if="${session.loggedInUser == null}" class="dropdown-item" href="prihlaseni">Přihlásit</a></li>
+                            <li><a th:if="${session.loggedInUser != null}" class="dropdown-item" href="/logout">Odhlásit</a></li>
+                            <li><a th:if="${session.loggedInUser != null}" class="dropdown-item" href="/myProfile">Můj Profil</a></li>
+                            <li><a th:if="${session.loggedInUser == null}" class="dropdown-item" href="registrace">Registrovat</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <header class="panel-heading text-center">
+                    <h1>Registrační formulář</h1>
+                </header>
+                <form action="registrace" method="post">
+                    <div class="form-group text-center mt-2">
+                        <label for="firstName">Jméno</label>
+                        <input type="text" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte jméno" id="firstName" name="firstName">
+                        <div class="alert alert-danger" role="alert" th:if="${firstNameError}" th:text="${firstNameError}"></div>
+                        <label for="lastName">Příjmení</label>
+                        <input type="text" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte příjmení" id="lastName" name="lastName">
+                        <div class="alert alert-danger" role="alert" th:if="${lastNameError}" th:text="${lastNameError}"></div>
+                        <label for="dateOfBirth">Datum narození (yyyy-mm-dd)</label>
+                        <input type="date" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte datum" id="dateOfBirth" name="dateOfBirth" th:attr="min='1900-01-01', max=${maxDate}, value=${defaultDate}">
+                        <label for="placeOfBirth">Místo narození</label>
+                        <input type="text" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte místo narození" id="placeOfBirth" name="placeOfBirth">
+                        <div class="alert alert-danger" role="alert" th:if="${placeOfBirthError}" th:text="${placeOfBirthError}"></div>
+                        <label for="street">Ulice trvalého bydliště</label>
+                        <input type="text" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte ulici bydliště" id="street" name="street">
+                        <div class="alert alert-danger" role="alert" th:if="${streetError}" th:text="${streetError}"></div>
+                        <label for="city">Město trvalého bydliště</label>
+                        <input type="text" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte město trvalého bydliště" id="city" name="city">
+                        <div class="alert alert-danger" role="alert" th:if="${cityError}" th:text="${cityError}"></div>
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte email" id="email" name="email">
+                        <div class="alert alert-danger" role="alert" th:if="${emailError}" th:text="${emailError}"></div>
+                        <label for="password">Zadejte heslo</label>
+                        <input type="password" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte vaše heslo" id="password" name="password">
+                        <div class="alert alert-danger" role="alert" th:if="${passwordError}" th:text="${passwordError}"></div>
+                        <label for="passwordRepeat">Zadejte heslo pro ověření</label>
+                        <input type="password" class="form-control" style="width: 50%; margin: 0 auto;" placeholder="Zadejte vaše heslo k ověření" id="passwordRepeat" name="passwordRepeat">
+                        <div class="alert alert-danger" role="alert" th:if="${passwordRepeatError}" th:text="${passwordRepeatError}"></div>
+                        <input type="submit" class="btn btn-primary" value="Odeslat">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

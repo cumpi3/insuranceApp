@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="cz-cz">
+<head>
+    <meta charset="UTF-8">
+    <title>InsuranceApp</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index">insuranceApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="index">Domů</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser == null}" class="nav-link" href="reference">Reference</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pojisteni">Pojištění</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser != null}"class="nav-link" href="udalosti">Moje události</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Uživatel</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a th:if="${session.loggedInUser == null}" class="dropdown-item" href="prihlaseni">Přihlásit</a></li>
+                            <li><a th:if="${session.loggedInUser != null}" class="dropdown-item" href="/logout">Odhlásit</a></li>
+                            <li><a th:if="${session.loggedInUser != null}" class="dropdown-item" href="/myProfile">Můj Profil</a></li>
+                            <li><a th:if="${session.loggedInUser == null}" class="dropdown-item" href="registrace">Registrovat</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2>Můj Profil</h2>
+        <div>
+            <p>Jméno: <span th:text="${session.loggedInUser.firstName}">Jméno</span></p>
+            <p>Příjmení: <span th:text="${session.loggedInUser.lastName}">Příjmení</span></p>
+            <p>Datum narození: <span th:text="${session.loggedInUser.dateOfBirth}">Datum narození</span></p>
+            <p>Místo narození: <span th:text="${session.loggedInUser.placeOfBirth}">Místo narození</span></p>
+            <p>E-mail: <span th:text="${session.loggedInUser.email}">E-mail</span></p>
+            <p>Adresa: <span th:text="${session.loggedInUser.street} + ', ' + ${session.loggedInUser.city}">Adresa</span></p>
+            <p><a href="editovat-osobni-udaje">Změna osobních údajů</a></p>
+            <!-- další informace o uživateli podle potřeby -->
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

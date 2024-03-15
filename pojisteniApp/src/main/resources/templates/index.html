@@ -1,0 +1,49 @@
+
+<html xmlns:th="http://www.thymeleaf.org" lang="cz-cz">
+<head>
+    <meta charset="UTF-8">
+    <title>InsuranceApp</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index">insuranceApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index">Domů</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser == null}" class="nav-link" href="reference">Reference</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser != null}" class="nav-link" href="pojisteni">Pojištění</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser != null}" class="nav-link" href="udalosti">Moje události</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Uživatel</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a th:if="${session.loggedInUser == null}" class="dropdown-item" href="prihlaseni">Přihlásit</a></li>
+                            <li><a th:if="${session.loggedInUser != null}" class="dropdown-item" href="/logout">Odhlásit</a></li>
+                            <li><a th:if="${session.loggedInUser != null}" class="dropdown-item" href="/myProfile">Můj Profil</a></li>
+                            <li><a th:if="${session.loggedInUser == null}" class="dropdown-item" href="registrace">Registrovat</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="text-center mt-5">
+            <h1>InsuranceApp</h1>
+            <p class="lead">Nová aplikace pro správu vašeho pojištění</p>
+            <div class="text-center mt-5">
+                <h2>O aplikaci</h2>
+                <p class="lead">Aplikace InsuranceApp slouží ke kompletní správě vašeho pojištění. Díky tomu máte přehled, jaká všechna pojištění máte, čeho se týkají a jakou částku za ně platíte. Dále máte přehled o vašich pojistných událostí, jak těch dávno vyřízených, tak těch aktuálních.</p>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS -->
+</body>
+</html>

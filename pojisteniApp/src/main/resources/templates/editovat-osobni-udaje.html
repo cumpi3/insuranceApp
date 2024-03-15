@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="cz-cz">
+<head>
+    <meta charset="UTF-8">
+    <title>InsuranceApp</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script defer th:src="@{/js/scripts.js}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index">insuranceApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="index">Domů</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser == null}" class="nav-link" href="reference">Reference</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pojisteni">Pojištění</a></li>
+                    <li class="nav-item"><a th:if="${session.loggedInUser != null}" class="nav-link" href="udalosti">Moje události</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Uživatel</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a th:if="${session.loggedInUser == null}" class="dropdown-item" href="prihlaseni">Přihlásit</a></li>
+                            <li><a th:if="${session.loggedInUser != null}" class="dropdown-item" href="/logout">Odhlásit</a></li>
+                            <li><a th:if="${session.loggedInUser != null}" class="dropdown-item" href="/myProfile">Můj Profil</a></li>
+                            <li><a th:if="${session.loggedInUser == null}" class="dropdown-item" href="registrace">Registrovat</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2>Úprava osobních údajů</h2>
+        <form th:action="@{/editovat-osobni-udaje}" method="post">
+            <div class="form-group text-center mt-2">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" th:value="${session.loggedInUser.email}">
+                <div class="alert alert-danger" role="alert" th:if="${emailError}" th:text="${emailError}"></div>
+                <div class="alert alert-danger" role="alert" th:if="${emailAlreadyUsedError}" th:text="${emailAlreadyUsedError}"></div>
+                <label for="street">Ulice:</label>
+                <input type="text" id="street" name="street" th:value="${session.loggedInUser.street}">
+                <div class="alert alert-danger" role="alert" th:if="${streetError}" th:text="${streetError}"></div>
+                <label for="city">Město:</label>
+                <input type="text" id="city" name="city" th:value="${session.loggedInUser.city}">
+                <div class="alert alert-danger" role="alert" th:if="${cityError}" th:text="${cityError}"></div>
+                <button type="submit" class="btn btn-primary edit">Aktualizovat osobní údaje</button>
+            </div>
+        </form>
+        <div>zpět na <a href="myProfile">můj profil</a></div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+</body>
+</html>
